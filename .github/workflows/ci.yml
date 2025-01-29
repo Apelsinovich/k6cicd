@@ -20,7 +20,7 @@ jobs:
         run: echo "${{ secrets.CICD_TOKEN }}" | head -c 5  # This will show only the first 5 characters for checking
 
       - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.CICD }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo "${{ secrets.CICD_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Pull and Run Docker Image
         run: |
