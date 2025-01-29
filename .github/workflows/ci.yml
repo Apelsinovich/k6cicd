@@ -30,3 +30,15 @@ jobs:
 
       - name: Run Generator 2
         run: docker run -d --name generator2 ghcr.io/apelsinovich/k6cicd/myk6test:latest
+      
+      - name: Check Container Status
+        run: |
+          docker ps -a
+          docker logs generator1
+          docker logs generator2
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker stop generator1 generator2
+          docker rm generator1 generator2
