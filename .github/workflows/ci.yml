@@ -11,18 +11,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    environment: GHCR_TOKEN  # Specify your environment name here
+    environment: test
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Debug token presence
-      run: echo "${{ secrets.GHCR_TOKEN }}" | head -c 5  # This will show only the first 5 characters for checking
-      
-    - name: Log in to GitHub Container Registry
-      run: echo "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" | docker login ghcr.io -u Apelsinovich --password-stdin
+      - name: Debug token presence
+        run: echo "${{ secrets.CICD_TOKEN }}" | head -c 5  # This will show only the first 5 characters for checking
 
-    - name: Pull and Run Docker Image
-      run: |
-        docker pull ghcr.io/apelsinovich/k6cicd/myk6test:latest
-        docker run ghcr.io/apelsinovich/k6cicd/myk6test:latest
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.CICD }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Pull and Run Docker Image
+        run: |
+          docker pull ghcr.io/apelsinovich/k6cicd/myk6test:latest
+          docker run ghcr.io/apelsinovich/k6cicd/myk6test:latest
