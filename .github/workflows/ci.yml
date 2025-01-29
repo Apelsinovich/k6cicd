@@ -23,7 +23,7 @@ jobs:
         run: docker run --name generator1 -v $(pwd)/k6results:/results ghcr.io/apelsinovich/k6cicd/myk6test:latest run --out json=/results/output.json test.js
       
       - name: Upload Results as Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: k6-test-results
           path: k6results/
