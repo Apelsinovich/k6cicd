@@ -21,7 +21,6 @@ jobs:
 
       - name: Create Results Directory
         run: mkdir -p k6results
-
       - name: Run Generator 1
         run: docker run --name generator1 -v $(pwd)/k6results:/app/results ghcr.io/apelsinovich/k6cicd/myk6test:latest
 
