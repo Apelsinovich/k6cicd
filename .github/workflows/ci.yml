@@ -4,18 +4,22 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: GHCR_TOKEN  # Specify your environment name here
 
     steps:
     - uses: actions/checkout@v2
 
     - name: Log in to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Pull and Run Docker Image
       run: |
-        sudo docker pull ghcr.io/apelsinovich/k6cicd/myk6test:latest
-        sudo docker run ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        docker pull ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        docker run ghcr.io/apelsinovich/k6cicd/myk6test:latest
