@@ -20,10 +20,10 @@ jobs:
         run: echo "${{ secrets.CICD_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Run Generator 1
-        run: docker run -d --name generator1 --pull=always ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        run: docker run --name generator1 --pull=always ghcr.io/apelsinovich/k6cicd/myk6test:latest
 
       - name: Run Generator 2
-        run: docker run -d --name generator2 --pull=always ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        run: docker run --name generator2 --pull=always ghcr.io/apelsinovich/k6cicd/myk6test:latest
       
       - name: Check Container Status
         run: |
