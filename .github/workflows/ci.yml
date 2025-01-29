@@ -17,5 +17,5 @@ jobs:
 
     - name: Pull and Run Docker Image
       run: |
-        docker pull ghcr.io/apelsinovich/k6cicd/myk6test:latest
-        docker run ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        sudo docker pull ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        sudo docker run ghcr.io/apelsinovich/k6cicd/myk6test:latest
