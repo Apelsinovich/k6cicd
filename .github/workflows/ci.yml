@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Log in to GitHub Container Registry
-      run: echo "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" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      run: echo "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" | docker login ghcr.io -u Apelsinovich --password-stdin
 
     - name: Pull and Run Docker Image
       run: |
