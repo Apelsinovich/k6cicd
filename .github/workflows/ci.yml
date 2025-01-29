@@ -14,16 +14,19 @@ jobs:
     environment: test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.CICD_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
+      - name: Create Results Directory
+        run: mkdir -p k6results
+
       - name: Run Generator 1
-        run: docker run --name generator1 -v $(pwd)/k6results:/results ghcr.io/apelsinovich/k6cicd/myk6test:latest run --out json=/results/output.json test.js
+        run: docker run --name generator1 -v $(pwd)/k6results:/app ghcr.io/apelsinovich/k6cicd/myk6test:latest
       
       - name: Upload Results as Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v2
         with:
           name: k6-test-results
           path: k6results/
