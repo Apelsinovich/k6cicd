@@ -23,10 +23,7 @@ jobs:
         run: mkdir -p k6results
 
       - name: Run Generator 1
-        run: docker run --name generator1 -v $(pwd)/k6results:/app ghcr.io/apelsinovich/k6cicd/myk6test:latest
-        
-      - name: Debug - List container directory
-        run: docker run --rm ghcr.io/apelsinovich/k6cicd/myk6test:latest ls /app
+        run: docker run --name generator1 -v $(pwd)/k6results:/app/results ghcr.io/apelsinovich/k6cicd/myk6test:latest
 
       - name: Upload Results as Artifact
         uses: actions/upload-artifact@v4
