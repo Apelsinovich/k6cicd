@@ -16,6 +16,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Debug token presence
+      run: echo "${{ secrets.GHCR_TOKEN }}" | head -c 5  # This will show only the first 5 characters for checking
+      
     - name: Log in to GitHub Container Registry
       run: echo "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" | docker login ghcr.io -u Apelsinovich --password-stdin
 
