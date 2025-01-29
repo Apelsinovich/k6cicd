@@ -20,19 +20,16 @@ jobs:
         run: echo "${{ secrets.CICD_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Run Generator 1
-        run: docker run --name generator1 --pull=always ghcr.io/apelsinovich/k6cicd/myk6test:latest
-
-      - name: Run Generator 2
-        run: docker run --name generator2 --pull=always ghcr.io/apelsinovich/k6cicd/myk6test:latest
+        run: docker run --name generator1 -v $(pwd)/k6results:/results ghcr.io/apelsinovich/k6cicd/myk6test:latest run --out json=/results/output.json test.js
       
-      - name: Check Container Status
-        run: |
-          docker ps -a
-          docker logs generator1
-          docker logs generator2
-
+      - name: Upload Results as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: k6-test-results
+          path: k6results/
+      
       - name: Cleanup
         if: always()
         run: |
-          docker stop generator1 generator2
-          docker rm generator1 generator2
+          docker stop generator1
+          docker rm generator1
